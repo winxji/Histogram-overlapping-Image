@@ -5,9 +5,13 @@ void read_obj()
   /////////////////////////////////////
   TImage *img = TImage::Open("paper.png"); //put your own picture here
   img->SetConstRatio(1);
-  
-  TCanvas *c1 = new TCanvas("c1");
   img->Draw("N");
+
+  //TCanvas *c1 = new TCanvas("c1");
+  //img->Draw("N");
+    
+  TCanvas *c = (TCanvas *)gROOT->GetListOfCanvases()->FindObject("paperpng");
+  c->SetFixedAspectRatio();  
   
   /////////////////////////////////////////
   
@@ -15,6 +19,8 @@ void read_obj()
   TPad *p = new TPad("p","p",0,0,1,1);
   p->SetFillStyle(4000);
   p->SetFrameFillStyle(4000);
+  //p->SetFrameLineColor(10);
+  p->SetFrameLineWidth(0);
   p->Draw();
   p->cd();
 
@@ -23,11 +29,11 @@ void read_obj()
 
   p->SetLeftMargin(0.235);
   p->SetRightMargin(0.1125+0.006);
-  p->SetTopMargin(0.12-0.004);
+  p->SetTopMargin(0.12-0.004  -0.5);
   p->SetBottomMargin(0.22);
 
   /////////////////////////////////////////
-  
+
   TH2D *h2d_basic = new TH2D("h2d_basic", "", 10, 1e-2, 1, 10, 1e-1, 100);
   h2d_basic->Draw("");
   h2d_basic->SetStats(0);
@@ -39,6 +45,7 @@ void read_obj()
   gh_basic->SetMarkerColor(kRed);
   gh_basic->SetMarkerStyle(20);
   gh_basic->SetMarkerSize(1.8);
-  gh_basic->Draw("same p");
+  gh_basic->Draw("same p"); 
 
+  //c->SaveAs("test.png");
 }
